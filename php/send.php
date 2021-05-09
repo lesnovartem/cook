@@ -1,56 +1,41 @@
 <?php
-if (isset ($name))
-{
-$name = substr($name,0,30); //Не может быть более 20 символов
-if (empty($name))
-{
-echo "<center><b>Не указано имя !!!<p>";
-echo "<a href=index.html>Вернуться и правильно заполнить форму.</a>";
-exit;
+$recaptcha = $_POST['g-recaptcha-response'];
+ 
+if(!empty($recaptcha)) {
+    $recaptcha = $_REQUEST['g-recaptcha-response'];
+    $secret = 'секретный ключ';
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secret ."&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR'];
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+    curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0");
+    $curlData = curl_exec($curl);
+    curl_close($curl); 
+    $curlData = json_decode($curlData, true);
+    if($curlData['success']) {
+        $fio = $_POST['fio'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
+        $fio = htmlspecialchars($fio);
+        $email = htmlspecialchars($email);
+        $message = htmlspecialchars($message);
+        $fio = urldecode($fio);
+        $email = urldecode($email);
+        $message = urldecode($message);
+        $fio = trim($fio);
+        $email = trim($email);
+        $message  = trim($message);
+        if (mail("lesnovartem7@gmail.com", "Заявка с сайта", "ФИО:".$fio.". E-mail: ".$email." Сообщение: ".$message ,"From: noreply@github.com \r\n")){  
+        echo "Сообщение успешно отправлено"; 
+        } else { 
+        echo "При отправке сообщения возникли ошибки";
+        }
+    } else {
+        echo "Подтвердите, что вы не робот и попробуйте еще раз";
+    }
 }
+else {
+    echo "поставьте галочку в поле 'Я не робот' для отправки сообщения";
 }
-else
-{
-$name = "не указано";
-}
-if (isset ($email))
-{
-$email = substr($email,0,30); //Не может быть более 20 символов
-if (empty($email))
-{
-echo "<center><b>Не указан e-mail !!!<p>";
-echo "<a href=index.php>Вернуться и правильно заполнить форму.</a>";
-exit;
-}
-}
-else
-{
-$email = "не указано";
-}
-if (isset ($mess))
-{
-$mess = substr($mess,0,1000); //Не может быть более 1000 символов
-if (empty($mess))
-{
-echo "<center><b>Сообщение не написано !!!<p>";
-echo "<a href=index.html>Вернуться и правильно заполнить форму.</a>";
-exit;
-}
-}
-else
-{
-$mess = "не указано";
-}
-$i = "не указано";
-if ($name == $i AND $email == $i AND $mess == $i)
-{
-echo "Ошибка ! Скрипту не были переданы параметры !";
-exit;
-}
-$to = "lesnovartem7@gmail.com";  /*МЕНЯЕШЬ НА СВОЙ АДРЕСС!*/
-$subject = "Сообщение с вашего интернет-сайта";
-$message = "Имя пославшего:$name::::::::::Электронный адрес:$email::::::::::Сообщение:$mess:::::::::IP-адрес:$REMOTE_ADDR";
-mail ($to,$subject,$message) or print "Не могу отправить письмо !!!";
-echo "<center><b>Спасибо за отправку вашего сообщения<a href=index.php>Нажмите</a>, что бы вернуться на главную...>";
-exit;
 ?>
