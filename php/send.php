@@ -1,41 +1,35 @@
 <?php
-$recaptcha = $_POST['g-recaptcha-response'];
+/* Здесь проверяется существование переменных */
+if (isset($_POST['name'])) {$phone = $_POST['name'];}
+if (isset($_POST['phone'])) {$name = $_POST['phone'];}
  
-if(!empty($recaptcha)) {
-    $recaptcha = $_REQUEST['g-recaptcha-response'];
-    $secret = 'секретный ключ';
-    $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secret ."&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR'];
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-    curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0");
-    $curlData = curl_exec($curl);
-    curl_close($curl); 
-    $curlData = json_decode($curlData, true);
-    if($curlData['success']) {
-        $fio = $_POST['fio'];
-        $email = $_POST['email'];
-        $message = $_POST['message'];
-        $fio = htmlspecialchars($fio);
-        $email = htmlspecialchars($email);
-        $message = htmlspecialchars($message);
-        $fio = urldecode($fio);
-        $email = urldecode($email);
-        $message = urldecode($message);
-        $fio = trim($fio);
-        $email = trim($email);
-        $message  = trim($message);
-        if (mail("lesnovartem7@gmail.com", "Заявка с сайта", "ФИО:".$fio.". E-mail: ".$email." Сообщение: ".$message ,"From: noreply@github.com \r\n")){  
-        echo "Сообщение успешно отправлено"; 
-        } else { 
-        echo "При отправке сообщения возникли ошибки";
-        }
-    } else {
-        echo "Подтвердите, что вы не робот и попробуйте еще раз";
-    }
-}
-else {
-    echo "поставьте галочку в поле 'Я не робот' для отправки сообщения";
-}
+/* Сюда впишите свою эл. почту */
+$myaddres  = "lesnovartem7@gmai.com"; // кому отправляем
+ 
+/* А здесь прописывается текст сообщения, \n - перенос строки */
+$mes = "Тема: Заказ обратного звонка!\nТелефон: $phone\nИмя: $name";
+ 
+/* А эта функция как раз занимается отправкой письма на указанный вами email */
+$sub='Заказ'; //сабж
+$email='Заказ обратного звонка'; // от кого
+$send = mail ($myaddres,$sub,$mes,"Content-type:text/plain; charset = utf-8\r\nFrom:$email");
+ 
+ini_set('short_open_tag', 'On');
+header('Refresh: 3; URL=index.html');
 ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="refresh" content="3; url=index.html">
+<title>Спасибо! Мы свяжемся с вами!</title>
+<meta name="generator">
+<script type="text/javascript">
+setTimeout('location.replace("/index.html")', 3000);
+/*Изменить текущий адрес страницы через 3 секунды (3000 миллисекунд)*/
+</script> 
+</head>
+<body>
+<h1>Спасибо! Мы свяжемся с вами!</h1>
+</body>
+</html>
