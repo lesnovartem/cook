@@ -238,16 +238,33 @@
 	 <div id="zatemnenie">
       <div id="okno">
 
-  <form method="post">
-Ваше имя: <input type="text" name="name" placeholder="Иван">
-Email для связи: <input type="email" name="email" placeholder="адрес электронной почты">
-Ваше сообщение: <textarea name="message" rows="5"></textarea>
-<input type="submit" value="отправить">
+  <form id="form">
+    <input type="text" name="name" required="required"/>
+    <input type="text" name="phone" required="required"/>
+    <textarea name="msg" cols="30" rows="10"></textarea>
+    <input type="submit" value="Заказать звонок"/>
 </form>
 
         <a href="#" class="close">Закрыть окно</a>
       </div>
     </div>
     <a href="#zatemnenie">Вызвать всплывающее окно</a>	
-</body>
+    <script type="text/javascript">
+$(document).ready(function(){
+    $("#form").submit(function() { //устанавливаем событие отправки для формы с id=form
+            var form_data = $(this).serialize(); //собераем все данные из формы
+            $.ajax({
+            type: "POST", //Метод отправки
+            url: "mail.php", //путь до php фаила отправителя
+            data: form_data,
+            success: function() {
+                   //код в этом блоке выполняется при успешной отправке сообщения
+                   alert("Ваше сообщение отправлено!");
+            }  
+                   
+        });
+    });
+});    
+</script>
+</body> 	
 </html>
