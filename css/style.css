@@ -24,8 +24,8 @@ h2 {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	background-color: #ccc69a;
 }
 .logo {
@@ -45,7 +45,7 @@ h2 {
 	align-items: center;
 	height: 85vh;
 	background-image: url(../img/foncook.jpg);
-	background-size: 100%;
+	background-size: cover;
 
 }
 .promo h1 {
@@ -64,41 +64,16 @@ h2 {
 	border:3px black  dashed;
     padding: 10px;
 }
+
+/*=====Анимация=====*/
+
+
+
+
 /*=====Навигация nav=====*/
 
 
 
-
-
-
-
-.menu {
-	position: relative;
-	color: #00a650; /*задаём цвет ссылки*/
-	cursor: pointer;
-	line-height: 1; /*задаём высоту строки*/
-	text-decoration: none; /*убираем подчёркивание*/
-
-}
-.menu:after {
-	display: block;
-	position: absolute;
-	left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
-	width: 0;/*задаём длинну линии до наведения курсора*/
-	height: 2px; /*задаём ширину линии*/
-	background-color: #00a650; /*задаём цвет линии*/
-	content: "";
-	transition: width 0.3s ease-out; /*задаём время анимации*/
-}
-
-.menu:hover:after,
-.menu:focus:after {
-	width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
-}
-.menu{
-	font-family: 'PT Sans Narrow', sans-serif;
-	font-size: 20px;
-}
 
 
 
@@ -212,7 +187,7 @@ ul {
   overflow: auto;
 }
 
-li a {
+.education li a {
   display: block;
   color: #000;
   padding: 8px 16px;
@@ -227,6 +202,11 @@ li a {
 }
 
 /*=====Раздел events=====*/
+.next
+{
+	color: blue;
+	font-size: 20px;
+}
 .test
 {
 	font-family: 'Comfortaa', cursive;
@@ -286,9 +266,9 @@ a{text-decoration: none;}
   background-position: 0 0;
 }
 
-.events-item
+.events
 {
-		
+		margin-top: 70px;
 }
 
 .features-list1 {
@@ -334,6 +314,31 @@ a{text-decoration: none;}
 
 
 .features-list2 li::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.list1 {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  list-style: none;
+  font-size: 16px;
+  font-family: cursive;
+}
+
+.list1 li {
+
+  width: 400px;
+  margin-right: 200px;
+  padding-top: 100px;
+}
+
+
+.list1 li::after {
   content: "";
 
   position: absolute;
@@ -404,18 +409,37 @@ a{text-decoration: none;}
 	border:3px black  dashed;
     padding: 10px;
 }
+
+
+
+
 .rounded li{
-display: block;
 padding: 5px 5px 4px 10px;
 margin: 5px;
 background: #DAD2CA;
-text-decoration: none;
 border-radius: 50px;
+
 }
 .rounded li:hover 
 {
 	background: #E9E4E0;
 }
+
+.education img
+{
+	margin-left: 200px;
+}
+ ol {
+  list-style: none;
+}
+  ol li::before {
+  content: "\2039";  /* юникод точки */
+  color: orange; /* Менять цвет */
+  font-weight: bold; /* Менять жирность */
+  display: inline-block; /* Расстояние между точкой и текстом */
+    width: 30px; /* Задать значение расстояния */
+}
+
 
 
 
@@ -425,7 +449,7 @@ border-radius: 50px;
 {
 	background-image: url(../img/bg.jpg);
 	background-repeat: no-repeat;
-	background-size: 100%;
+	background-size: cover;
 }
 
 /*=====Раздел training=====*/
@@ -443,11 +467,24 @@ border-radius: 50px;
 .target
 {
 	padding-bottom: 45px;
-	background-color: grey;
+	background-color: #62639B;
 }
 .target .btn-invitation
 {
 	margin-top: -25px;
+}
+@import url('https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap');
+
+.target p{
+	margin-top: -30px;
+  font-size:30px;
+	letter-spacing:0.1em;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: white;
+  text-shadow: 
+						8px 8px #ff1f8f,
+						20px 20px #000000;
 }
 
 /*=====Раздел footer=====*/
@@ -462,4 +499,129 @@ footer {
 	color: #bbbbff;
 
 }
+
 /* https://colorscheme.ru/#0032Heejdw0w0 */
+
+/*фон*/
+nav {
+  margin: 0 auto;
+  box-shadow: 0px 5px 0px #dedede;
+}
+nav ul {
+  list-style: none;
+  text-align: center;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 10px;
+}
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all .5s;
+}
+nav ul li a:hover {
+  color: #555;
+}
+
+nav.circle ul li a {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+nav.circle ul li a:after {
+  display: block;
+  position: absolute;
+  margin: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: '.';
+  color: transparent;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background: transparent;
+}
+nav.circle ul li a:hover:after {
+  -webkit-animation: circle 1.5s ease-in forwards;
+}
+
+
+@-webkit-keyframes circle {
+  0% {
+    width: 1px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 1px;
+    z-index: -1;
+    background: #eee;
+    border-radius: 100%;
+  }
+  100% {
+    background: #aaa;
+    height: 5000%;
+    width: 5000%;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 0;
+  }
+}
+
+/*Всплывающее окно*/
+      #zatemnenie {
+        background: rgba(102, 102, 102, 0.5);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+      }
+      #okno {
+        width: 500px;
+        height: 300px;
+        text-align: center;
+        padding: 15px;
+        border: 3px solid #0000cc;
+        border-radius: 10px;
+        color: #0000cc;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: #fff;
+      }
+      #zatemnenie:target {display: block;}
+      .close {
+        display: inline-block;
+        border: 1px solid #0000cc;
+        color: #0000cc;
+        padding: 0 12px;
+        margin: 10px;
+        text-decoration: none;
+        background: #f2f2f2;
+        font-size: 14pt;
+        cursor:pointer;
+      }
+      .close:hover {background: #e6e6ff;}
+
+             
